@@ -1,0 +1,4 @@
+
+verbose
+basedir /var/packages
+ask-passphrase
