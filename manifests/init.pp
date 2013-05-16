@@ -47,12 +47,12 @@ class reprepro($override='', $pub_key='', $pub_file='') {
     owner      => 'root',
     group      => 'root',
     content    => template('reprepro/distributions.erb'),
-  } -> Exec['import deb']
+  } -> Exec<| |>
 
   file{'/var/packages/ubuntu/conf/override.quantal':
       source  => $override,
       require => File['/var/packages/ubuntu/conf/']
-  } -> Exec['import deb']
+  } -> Exec<| |>
 
   file{"/var/packages/ubuntu/${pub_key}":
     source => $pub_file
