@@ -39,6 +39,7 @@ class reprepro::nginx {
   }
 
   file{'/etc/nginx/conf.d/default.conf':
-    ensure => absent
+    ensure => absent,
+    notify => Service['nginx']
   }
 }
