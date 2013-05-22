@@ -38,4 +38,7 @@ class reprepro::nginx {
     location_cfg_append => {'deny' => 'all'}
   }
 
+  file{'/etc/nginx/conf.d/default':
+    ensure => absent
+  }
 }
