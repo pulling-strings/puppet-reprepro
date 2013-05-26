@@ -52,6 +52,6 @@ define reprepro::includeb($deb='') {
     cwd     =>  '/var/packages/ubuntu/',
     user    => 'root',
     path    => '/usr/bin/',
-    unless  =>  "/usr/bin/reprepro list quantal | /bin/grep ${name}",
+    unless  =>  "/usr/bin/reprepro list quantal | /bin/grep '${name}'",
   }
 }
