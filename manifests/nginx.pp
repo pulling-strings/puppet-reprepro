@@ -37,9 +37,4 @@ class reprepro::nginx {
     www_root            => '/var/packages',
     location_cfg_append => {'deny' => 'all'}
   }
-
-  file{'/etc/nginx/conf.d/default.conf':
-    ensure => absent,
-    notify => Service['nginx']
-  }
 }
