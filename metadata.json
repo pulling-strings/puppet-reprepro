@@ -1,0 +1,35 @@
+{
+  "name": "strings-reprepro",
+  "version": "0.1.0",
+  "author": "narkisr.com",
+  "summary": "narkisr.com reprepro module",
+  "license": "Apache-2.0",
+  "source": "https://github.com/pulling-strings/puppet-reprepro",
+  "project_page": "https://github.com/pulling-strings/puppet-reprepro",
+  "issues_url": "https://github.com/pulling-strings/puppet-reprepro/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "14.10"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.2.0 < 3.5.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "jfryman/nginx",
+      "version_requirement": ">= 0.2.7"
+    }
+  ]
+}
