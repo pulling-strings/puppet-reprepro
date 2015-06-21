@@ -26,19 +26,17 @@ define reprepro::includeb($deb='') {
   if !defined(Package['dpkg-sig']) {
     package{'dpkg-sig':
       ensure  => present
-    } -> Exec['gpg import private']
+    } -> Exec["gpg import private ${deb}"]
   }
 
   $private_key = hiera('reprepro::includeb::private_key')
 
-  if !defined(Exec['gpg import private']) {
-    exec{'gpg import private':
+    exec{"gpg import private ${deb}":
       command => "gpg --allow-secret-key-import --import ${private_key}",
       user    => 'root',
       path    => '/usr/bin',
       unless  => "/usr/bin/gpg --list-keys | /bin/grep ${key_id}"
     } -> Exec["sign ${deb}"]
-  }
 
   exec{"sign ${deb}":
     command => "dpkg-sig -k ${key_id} --sign builder ${deb}",
