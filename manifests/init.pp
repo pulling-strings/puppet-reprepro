@@ -49,7 +49,7 @@ class reprepro($override='', $pub_key='', $pub_file='') {
     content    => template('reprepro/distributions.erb'),
   } -> Exec<| |>
 
-  file{'/var/packages/ubuntu/conf/override.quantal':
+  file{'/var/packages/ubuntu/conf/override.wily':
       source  => $override,
       require => File['/var/packages/ubuntu/conf/']
   } -> Exec<| |>
