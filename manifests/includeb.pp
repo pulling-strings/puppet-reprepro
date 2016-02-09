@@ -31,12 +31,12 @@ define reprepro::includeb($deb='') {
 
   $private_key = hiera('reprepro::includeb::private_key')
 
-    exec{"gpg import private ${deb}":
-      command => "gpg --allow-secret-key-import --import ${private_key}",
-      user    => 'root',
-      path    => '/usr/bin',
-      unless  => "/usr/bin/gpg --list-keys | /bin/grep ${key_id}"
-    } -> Exec["sign ${deb}"]
+  exec{"gpg import private ${deb}":
+    command => "gpg --allow-secret-key-import --import ${private_key}",
+    user    => 'root',
+    path    => '/usr/bin',
+    unless  => "/usr/bin/gpg --list-keys | /bin/grep ${key_id}"
+  } -> Exec["sign ${deb}"]
 
   exec{"sign ${deb}":
     command => "dpkg-sig -k ${key_id} --sign builder ${deb}",
@@ -47,9 +47,9 @@ define reprepro::includeb($deb='') {
 
   exec{"import ${deb}":
     command => "reprepro includedeb wily ${deb}",
-    cwd     =>  '/var/packages/ubuntu/',
+    cwd     => '/var/packages/ubuntu/',
     user    => 'root',
     path    => '/usr/bin/',
-    unless  =>  "/usr/bin/reprepro list wily | /bin/grep '${name}'",
+    unless  => "/usr/bin/reprepro list wily | /bin/grep '${name}'",
   }
 }
