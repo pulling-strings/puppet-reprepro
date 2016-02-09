@@ -23,30 +23,23 @@
 #
 # === Copyright
 #
-# Copyright 2013 Ronen Narkis, unless otherwise noted.
+# Copyright 2016 Ronen Narkis, unless otherwise noted.
 #
-class reprepro($override='', $pub_key='', $pub_file='') {
+class reprepro(
+  $override='',
+  $pub_key='',
+  $pub_file=''
+) {
 
+  include ::reprepro::deployment
   package{'reprepro':
     ensure  => present
   }
 
-  file{'/var/packages':
-    ensure => directory,
-  }
-
-  file{['/var/packages/ubuntu/', '/var/packages/ubuntu/conf/',
-          '/var/packages/ubuntu/debian/', '/var/packages/ubuntu/debian/conf/']:
-    ensure  => directory,
-    require => File['/var/packages']
-  }
-
-  $key_id = hiera('reprepro::key_id')
-
   file{'/var/packages/ubuntu/conf/distributions':
-    owner      => 'root',
-    group      => 'root',
-    content    => template('reprepro/distributions.erb'),
+    owner   => 'root',
+    group   => 'root',
+    content => template('reprepro/distributions.erb'),
   } -> Exec<| |>
 
   file{'/var/packages/ubuntu/conf/override.wily':
@@ -54,7 +47,9 @@ class reprepro($override='', $pub_key='', $pub_file='') {
       require => File['/var/packages/ubuntu/conf/']
   } -> Exec<| |>
 
-  file{"/var/packages/ubuntu/${pub_key}":
-    source => $pub_file
+  if $pub_key != '' and $pub_file != '' {
+    file{"/var/packages/ubuntu/${pub_key}":
+      source => $pub_file
+    }
   }
 }
