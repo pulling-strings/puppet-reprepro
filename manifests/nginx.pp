@@ -12,28 +12,31 @@
 #
 # === Copyright
 #
-# Copyright 2013 Ronen Narkis, unless otherwise noted.
-class reprepro::nginx {
+# Copyright 2015 Ronen Narkis, unless otherwise noted.
+class reprepro::nginx(
+  $vhost = 'repo.local'
+){
 
   class {'::nginx': }
 
-  nginx::resource::vhost { 'repo.local':
-    ensure   => present,
-    www_root => '/var/packages',
+  nginx::resource::vhost { $vhost:
+    ensure               => present,
+    www_root             => '/vak/packages',
+    use_default_location => false
   }
 
   nginx::resource::location { 'conf':
     ensure              => present,
     location            => '~ /(.*)/conf',
-    vhost               => 'repo.local',
+    vhost               => $vhost,
     www_root            => '/var/packages',
-    location_cfg_append => {'deny' => 'all'},
+    location_cfg_append => {'deny' => 'all'}
   }
 
   nginx::resource::location { 'db':
     ensure              => present,
     location            => '~ /(.*)/db',
-    vhost               => 'repo.local',
+    vhost               => $vhost,
     www_root            => '/var/packages',
     location_cfg_append => {'deny' => 'all'}
   }
