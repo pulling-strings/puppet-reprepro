@@ -17,13 +17,7 @@ class reprepro::nginx(
   $vhost = 'repo.local'
 ){
 
-  class {'::nginx': }
-
-  nginx::resource::vhost { $vhost:
-    ensure               => present,
-    www_root             => '/vak/packages',
-    use_default_location => false
-  }
+  include '::nginx'
 
   nginx::resource::location { 'conf':
     ensure              => present,
