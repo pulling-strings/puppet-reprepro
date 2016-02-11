@@ -14,7 +14,8 @@
 #
 # Copyright 2015 Ronen Narkis, unless otherwise noted.
 class reprepro::nginx(
-  $vhost = 'repo.local'
+  $vhost = 'repo.local',
+  $ssl = false
 ){
 
   include '::nginx'
@@ -24,7 +25,9 @@ class reprepro::nginx(
     location            => '~ /(.*)/conf',
     vhost               => $vhost,
     www_root            => '/var/packages',
-    location_cfg_append => {'deny' => 'all'}
+    location_cfg_append => {'deny' => 'all'},
+    ssl                 => $ssl,
+    ssl_only            => $ssl
   }
 
   nginx::resource::location { 'db':
@@ -32,6 +35,19 @@ class reprepro::nginx(
     location            => '~ /(.*)/db',
     vhost               => $vhost,
     www_root            => '/var/packages',
-    location_cfg_append => {'deny' => 'all'}
+    location_cfg_append => {'deny' => 'all'},
+    ssl                 => $ssl,
+    ssl_only            => $ssl
   }
+
+  nginx::resource::location { 'ubuntu':
+    ensure              => present,
+    location            => '/ubuntu/',
+    vhost               => $vhost,
+    www_root            => '/var/packages/',
+    location_cfg_append => {'deny' => 'all'},
+    ssl                 => $ssl,
+    ssl_only            => $ssl
+  }
+
 }
