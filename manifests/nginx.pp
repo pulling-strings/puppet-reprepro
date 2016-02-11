@@ -45,7 +45,6 @@ class reprepro::nginx(
     location            => '/ubuntu/',
     vhost               => $vhost,
     www_root            => '/var/packages/',
-    location_cfg_append => {'deny' => 'all'},
     ssl                 => $ssl,
     ssl_only            => $ssl
   }
