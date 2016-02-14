@@ -28,7 +28,8 @@
 class reprepro(
   $override='',
   $pub_key='',
-  $pub_file=''
+  $pub_file='',
+  $key_id=''
 ) {
 
   include ::reprepro::deployment
