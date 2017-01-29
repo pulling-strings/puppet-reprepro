@@ -46,10 +46,10 @@ define reprepro::includeb($deb='') {
   } ->
 
   exec{"import ${deb}":
-    command => "reprepro includedeb wily ${deb}",
+    command => "reprepro includedeb xenial ${deb}",
     cwd     => '/var/packages/ubuntu/',
     user    => 'root',
     path    => '/usr/bin/',
-    unless  => "/usr/bin/reprepro list wily | /bin/grep '${name}'",
+    unless  => "/usr/bin/reprepro list xenial | /bin/grep '${name}'",
   }
 }

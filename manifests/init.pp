@@ -43,7 +43,7 @@ class reprepro(
     content => template('reprepro/distributions.erb'),
   } -> Exec<| |>
 
-  file{'/var/packages/ubuntu/conf/override.wily':
+  file{'/var/packages/ubuntu/conf/override.xenial':
       source  => $override,
       require => File['/var/packages/ubuntu/conf/']
   } -> Exec<| |>
